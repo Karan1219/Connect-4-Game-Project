@@ -1,5 +1,4 @@
 window.onload = () => {
-
   const myCursor = document.querySelector(".board");
   let myStart = document.querySelector(".start");
   let myBackground = document.querySelector(".background");
@@ -66,29 +65,41 @@ window.onload = () => {
     myBackground.style.transform = "translateY(-100%)";
     myBackground.style.transition = "transform 2s ease-out";
     myCursor.style.display = "grid";
-    myCursor.style.transform = "translateY(0%)";
-    myCursor.style.transition = "transform 2s ease-in-out 500ms";
-    setTimeout(function () {
-      name1 = prompt("Enter Player 1 Name: ");
-      name2 = prompt("Enter Player 2 Name: ");
-      if (name1 == null) {
-        name1 = "Player 1";
-      }
-      if (name2 == null) {
-        name2 = "Player 2";
-      }
-      console.log(name1);
-      console.log(name2);
-      name1 = camelCase(name1);
-      name2 = camelCase(name2);
-      playername.innerHTML = name1 + "'s Turn";
-      playername.style.transform = "scale(1) translate(-50%,-50%)";
-    }, 2500);
+    if (myStart.classList.contains("resume")) {
+      myStart.classList.remove("resume");
+      setTimeout(function () {
+        myCursor.style.transform = "translateY(0%)";
+        myCursor.style.transition = "transform 1.2s ease-in-out";
+        playername.style.transform = "scale(1) translate(-50%,-50%)";
+      }, 1000);
+    } else {
+      myCursor.style.transform = "translateY(0%)";
+      myCursor.style.transition = "transform 2s ease-in-out 500ms";
+      setTimeout(function () {
+        name1 = prompt("Enter Player 1 Name: ");
+        name2 = prompt("Enter Player 2 Name: ");
+        if (name1 == null || name1 == "") {
+          name1 = "Player 1";
+        }
+        if (name2 == null || name2 == "") {
+          name2 = "Player 2";
+        }
+        console.log(name1);
+        console.log(name2);
+        name1 = camelCase(name1);
+        name2 = camelCase(name2);
+        playername.innerHTML = name1 + "'s Turn";
+        playername.style.transform = "scale(1) translate(-50%,-50%)";
+      }, 2500);
+    }
     arrowUp.style.display = "flex";
   });
   arrowUp.addEventListener("click", function () {
+    myStart.classList.add("resume");
+    myStart.innerHTML = "Resume";
+    myStart.style.padding = "20px 70px";
     myWinnerDiv.style.display = "none";
-    myCursor.style.transform = "translateY(150%)";
+    myCursor.style.transform = "translateY(-150%)";
     myCursor.style.transition = "transform 1.5s ease-in-out";
     playername.style.transform = "scale(0)";
     myBackground.style.transform = "translateY(0%)";
@@ -96,6 +107,7 @@ window.onload = () => {
     setTimeout(function () {
       myCursor.style.display = "none";
       arrowUp.style.display = "none";
+      myCursor.style.transition = "none";
     }, 1500);
   });
   for (var i = 0; i < slots.length; i++) {

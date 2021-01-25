@@ -27,8 +27,9 @@ body{
     height: 100vh;
     width: 100vw;
     background: linear-gradient(-45deg,rgb(54, 85, 143),cornflowerblue,rgb(52, 94, 173));
+    background-size:400% 400%;
     opacity: 0;
-    animation: starting 1s ease-in-out forwards;
+    animation: starting 1s ease-in-out forwards,change 10s ease-in-out infinite;
 }
 @keyframes starting{
     to{
@@ -74,7 +75,7 @@ body{
         box-shadow: 5px 5px 25px black;
         background: linear-gradient(-45deg,rgb(16, 53, 121),rgb(16, 53, 121),cornflowerblue,rgb(16, 53, 121),rgb(16, 53, 121));
         background-size: 155% 155%;
-        animation:  change 7s ease-in-out infinite;
+        animation: change 7s ease-in-out infinite;
         border-radius: 100px;
         text-align: center;
         font-size: 5rem;
@@ -101,7 +102,7 @@ body{
         box-shadow: 5px 5px 25px black;
         background: linear-gradient(-45deg,rgb(16, 53, 121),rgb(16, 53, 121),cornflowerblue,rgb(16, 53, 121),rgb(16, 53, 121));
         background-size: 155% 155%;
-        animation:  change 7s ease-in-out infinite;
+        animation: change 7s ease-in-out infinite;
         text-align: center;
         font-size: 1.8rem;
         color: white;
@@ -112,8 +113,7 @@ body{
         &:hover{
             font-size: 2rem;
             cursor: pointer;
-        }
-       
+        }       
     }
     .instruction-explained{
             height: 45rem;
@@ -378,6 +378,9 @@ body{
     100%{
         stroke-dashoffset: 0;
     }
+}
+.resume{
+    
 }
 .container{        
     @include translate-center;
