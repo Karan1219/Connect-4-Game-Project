@@ -17,23 +17,45 @@ window.onload = () => {
   let array = Array.from(Array(8), (_) => Array(10).fill(0));
   let name1 = "Player 1",
     name2 = "Player 2";
+  let vol=1;
+  var winnerSound =new Audio("./Resource/sounds/winner.mp3");
   volume.addEventListener("click", function () {
+    var volumeSound = new Audio("./Resource/sounds/volumebutton.wav");
+    winnerSound.pause();
+    winnerSound.currentTime = 0;
     let temp = volume.getAttribute("src");
     if (temp == "images/volume.png") {
+      vol=0;
       volume.src = "images/mute.png";
     } else {
+      volumeSound.play(); volumeSound.volume = 0.3;
+      vol=1;
       volume.src = "images/volume.png";
     }
   });
   sun.addEventListener("click", function () {
+    var sunSound =  new Audio("./Resource/sounds/sun.wav");
+    if(vol==1){
+      sunSound.play(); sunSound.volume = 0.3;
+    }
     body.classList.toggle("sun-filter");
     body.classList.toggle("my-body");
   });
   instructions.addEventListener("click", function () {
+    var instSound =  new Audio("./Resource/sounds/volume.wav");
+    if(vol==1){
+      instSound.play(); instSound.volume = 0.3;
+    }
     instructionExplained.classList.toggle("hide");
   });
-
+  
   restart[0].addEventListener("click", function () {
+    var restartSound =  new Audio("./Resource/sounds/restart.wav");
+    winnerSound.pause();
+    winnerSound.currentTime = 0;
+    if(vol==1){
+      restartSound.play(); restartSound.volume = 0.3;
+    }
     myWinnerDiv.style.display = "none";
     restart[0].style.animation = "rotate 2s";
     playername.innerHTML = name1 + "'s Turn";
@@ -48,6 +70,12 @@ window.onload = () => {
     }, 2000);
   });
   restart[1].addEventListener("click", function () {
+    var restartSound =  new Audio("./Resource/sounds/restart.wav");
+    winnerSound.pause();
+    winnerSound.currentTime = 0;
+    if(vol==1){
+      restartSound.play(); restartSound.volume = 0.3;
+    }
     myWinnerDiv.style.display = "none";
     restart[1].style.animation = "rotate 2s";
     playername.innerHTML = name1 + "'s Turn";
@@ -62,6 +90,10 @@ window.onload = () => {
     }, 2000);
   });
   myStart.addEventListener("click", function () {
+    var startSound =  new Audio("./Resource/sounds/start.wav");
+    if(vol==1){
+      startSound.play(); startSound.volume = 0.3;
+    }
     myBackground.style.transform = "translateY(-100%)";
     myBackground.style.transition = "transform 2s ease-out";
     myCursor.style.display = "grid";
@@ -95,6 +127,12 @@ window.onload = () => {
     arrowUp.style.display = "flex";
   });
   arrowUp.addEventListener("click", function () {
+    var arrowSound =  new Audio("./Resource/sounds/volumebutton.wav");
+    winnerSound.pause();
+    winnerSound.currentTime = 0;
+    if(vol==1){
+      arrowSound.play(); arrowSound.volume = 0.3;
+    }
     myStart.classList.add("resume");
     myStart.innerHTML = "Resume";
     myStart.style.padding = "20px 70px";
@@ -113,6 +151,10 @@ window.onload = () => {
   for (var i = 0; i < slots.length; i++) {
     (function (index) {
       slots[i].addEventListener("click", function () {
+        var tokenSound = new Audio("./Resource/sounds/token.wav");
+        if(vol==1){
+          tokenSound.play(); tokenSound.volume = 0.3;
+        }
         console.log(index);
         let mod = index % 10;
         console.log("mod " + mod);
@@ -184,18 +226,26 @@ window.onload = () => {
         } else {
           row = Math.floor(div / 10);
         }
-        winner = checkBoard(row, mod, currentPlayer);
+        winner = checkBoard(row, mod, currentPlayer);        
         if (winner == 1) {
           myWinner.innerHTML = name1;
+          myWinner.classList.remove("animate-winner-yellow");
           myWinner.classList.add("animate-winner-red");
           setTimeout(() => {
             myWinnerDiv.style.display = "flex";
+            if(vol==1){
+              winnerSound.play(); 
+            }
           }, 1000);
         } else if (winner == 2) {
-          myWinner.innerHTML = name2;
+          myWinner.innerHTML = name2;          
+          myWinner.classList.remove("animate-winner-red");
           myWinner.classList.add("animate-winner-yellow");
           setTimeout(() => {
             myWinnerDiv.style.display = "flex";
+            if(vol==1){
+              winnerSound.play(); 
+            }
           }, 1000);
         }
       });
